@@ -1,4 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+body{
+  font-family:serif;
+}
+.topbar{
+  height: 55px;
+  /* width: 1860px; */
+  background-color: orange;
+  border-radius: 8px;
+}
+.nav-two{
+  height: 99px;
+}
