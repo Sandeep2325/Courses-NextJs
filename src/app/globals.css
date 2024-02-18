@@ -3,6 +3,7 @@
 @tailwind utilities;
 body{
   font-family:serif;
+  background-color: #f7f7f8;
 }
 .topbar{
   height: 55px;
@@ -12,4 +13,13 @@ body{
 }
 .nav-two{
   height: 99px;
+}
+
+.heroimage{
+  width: 1596;
+  height: 790;
+}
+.benefit-number{
+  font-weight: bolder;
+  font-size: 80px;
 }

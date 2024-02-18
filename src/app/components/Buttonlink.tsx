@@ -5,11 +5,12 @@ interface MyComponentProps {
   className: string;
   href:string;
 }
-function Buttonlink(props: MyComponentProps) {
-  const { title, className,href } = props;
+function Buttonlink({ title, className, href, ...props }: MyComponentProps) {
+  
   return (
     <Link
       className={`inline-block bg-orange-400 text-white px-4 py-2 rounded-lg  hover:bg-gray-300 ${className}`}
+      {...props}
       href={href}
     >
       {title}
