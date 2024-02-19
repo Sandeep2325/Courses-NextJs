@@ -11,6 +11,9 @@ import BenefitCard from "./components/BenefitCard";
 import OurCoursesCard from "./components/OurCoursesCard";
 import OurCoursesImage from "@/app/assets/OurCourseImage.png";
 import TestimonialsCard from "./components/TestimonialsCard";
+import TestimonialImage from "@/app/assets/TestimonialImage.png";
+import PricingCard from "./components/PricingCard";
+
 export default function Home() {
   const benefits = [
     {
@@ -50,17 +53,123 @@ export default function Home() {
         "Fit your caswwork around your existing commitments and obligations",
     },
   ];
-  const Courses=[
-    {id:"01",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Beginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" },
-    {id:"02",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Beginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" },
-    {id:"03",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Beginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" },
-    {id:"04",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Beginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" },
-    {id:"05",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Beginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" },
-    {id:"06",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Beginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" },
-    
-  
+  const Courses = [
+    {
+      id: "01",
+      imageurl: OurCoursesImage,
+      weeks: "4 weeks",
+      experience: "Beginner",
+      auther: "Sandeep",
+      title: "Web design fundamentals",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      href: "/",
+    },
+    {
+      id: "02",
+      imageurl: OurCoursesImage,
+      weeks: "4 weeks",
+      experience: "Beginner",
+      auther: "Sandeep",
+      title: "Web design fundamentals",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      href: "/",
+    },
+    {
+      id: "03",
+      imageurl: OurCoursesImage,
+      weeks: "4 weeks",
+      experience: "Beginner",
+      auther: "Sandeep",
+      title: "Web design fundamentals",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      href: "/",
+    },
+    {
+      id: "04",
+      imageurl: OurCoursesImage,
+      weeks: "4 weeks",
+      experience: "Beginner",
+      auther: "Sandeep",
+      title: "Web design fundamentals",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      href: "/",
+    },
+    {
+      id: "05",
+      imageurl: OurCoursesImage,
+      weeks: "4 weeks",
+      experience: "Beginner",
+      auther: "Sandeep",
+      title: "Web design fundamentals",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      href: "/",
+    },
+    {
+      id: "06",
+      imageurl: OurCoursesImage,
+      weeks: "4 weeks",
+      experience: "Beginner",
+      auther: "Sandeep",
+      title: "Web design fundamentals",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      href: "/",
+    },
+  ];
+
+  const testimonials = [
+    {
+      id: 1,
+      author: "Sandeep G",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      imageurl: TestimonialImage,
+      href: "/",
+    },
+    {
+      id: 2,
+      author: "Sarah G",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      imageurl: TestimonialImage,
+      href: "/",
+    },
+    {
+      id: 3,
+      author: "Sarah L",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      imageurl: TestimonialImage,
+      href: "/",
+    },
+    {
+      id: 4,
+      author: "Sandeep G",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      imageurl: TestimonialImage,
+      href: "/",
+    },
+  ];
+
+  const pricings=[
+    {plan:"free",
+     amount:"$0", 
+     features:[{Id:1, description:"Access to selected free courses"},{Id:2, description:"Access to selected free courses"},{Id:3, description:"Access to selected free courses"},{Id:4, description:"Access to selected free courses"}], 
+     href:"/"
+    },
+    {plan:"Pro plan",
+     amount:"$70", 
+     features:[{Id:1, description:"Access to selected free courses"},{Id:2, description:"Access to selected free courses"},{Id:3, description:"Access to selected free courses"},{Id:4, description:"Access to selected free courses"}], 
+     href:"/"
+    }
   ]
-  
+
   return (
     <section className="home pt-5">
       <div className="flex justify-center">
@@ -152,16 +261,23 @@ export default function Home() {
           <ButtonLinkPlain title={"Viewall"} className="" href="" />
         </div>
       </div>
-      <div className="flex flex-wrap" >
-      {/* {id:"01",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Benginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" }, */}
-        {Courses.map((course)=>(
-          <OurCoursesCard key={course.id} imageurl={course.imageurl} weeks={course.weeks} experience={course.experience} author={course.auther} title={course.title} content={course.content} href={course.href}/>
+      <div className="flex flex-wrap">
+        {/* {id:"01",imageurl:OurCoursesImage,weeks:"4 weeks", experience:"Benginner",auther:"Sandeep", title:"Web design fundamentals", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",href:"/" }, */}
+        {Courses.map((course) => (
+          <OurCoursesCard
+            key={course.id}
+            imageurl={course.imageurl}
+            weeks={course.weeks}
+            experience={course.experience}
+            author={course.auther}
+            title={course.title}
+            content={course.content}
+            href={course.href}
+          />
         ))}
         {/* <OurCoursesCard />
         <OurCoursesCard />
         <OurCoursesCard /> */}
-
-
       </div>
       <div className="flex justify-between py-5 items-center">
         <div className="py-2">
@@ -177,13 +293,49 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-wrap">
-
+        {testimonials.map((testimonial) => (
+          <TestimonialsCard
+            key={testimonial.id}
+            imageurl={testimonial.imageurl}
+            author={testimonial.author}
+            content={testimonial.content}
+            href={testimonial.href}
+          />
+        ))}
+      </div>
+      <div className="pricing flex flex-col">
+        <div className="flex justify-between py-5 items-center">
+          <div className="py-2">
+            <h1 className="font-bold text-lg">{"Our Pricing"}</h1>
+            <p>
+              {`lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+            lorem lorem lorem lorem lorem lorem lorem lorem lorlllllllllllllllllll lllllllllllllllllllllll llllllllllllllem lorem lorem
+            lorem lorem`}
+            </p>
+          </div>
+          <div className="px-2 bg-white p-2 rounded-md">
+            <div className="flex justify-between">
+              <div className="px-1">
+                <Buttonlink title={"Viewall"} className="" href="" />
+              </div>
+              <div className="px-1">
+                <ButtonLinkPlain
+                  title={"Viewall"}
+                  className="bg-gray-100"
+                  href=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-white rounded-md p-5 flex">
+{pricings.map((pricing)=>(
+  <PricingCard key={pricing.plan} plan={pricing.plan} amount={pricing.amount} features={pricing.features} href={pricing.href}/>
+))}
         
-<TestimonialsCard/>
-<TestimonialsCard/>
 
-<TestimonialsCard/>
-
+      
+        </div>
       </div>
     </section>
   );
