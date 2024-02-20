@@ -9,15 +9,17 @@ interface MyComponentProps {
   content: string;
   author: string;
   href: string;
+  home:boolean;
 }
 function TestimonialsCard({
   imageurl,
   content,
   author,
   href,
+  home,
 }: MyComponentProps) {
   return (
-    <div className="flex flex-col w-1/2 my-2  text-center bg-white border border-gray-200 rounded-lg shadow sm:p-2 dark:bg-gray-800 dark:border-gray-700">
+    <div className={`flex flex-col ${home?"w-1/2":""} my-2  text-center bg-white border border-gray-200 rounded-lg shadow sm:p-2 dark:bg-gray-800 dark:border-gray-700`}>
       <div className="pb-3 ">
         <p>{content}</p>
       </div>

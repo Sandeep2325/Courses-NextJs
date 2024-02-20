@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import logo from "@/app/assets/Logo.png";
 import Link from "next/link";
@@ -13,7 +14,7 @@ import OurCoursesImage from "@/app/assets/OurCourseImage.png";
 import TestimonialsCard from "./components/TestimonialsCard";
 import TestimonialImage from "@/app/assets/TestimonialImage.png";
 import PricingCard from "./components/PricingCard";
-
+import AccordionItem from "./components/Accordian";
 export default function Home() {
   const benefits = [
     {
@@ -157,18 +158,30 @@ export default function Home() {
     },
   ];
 
-  const pricings=[
-    {plan:"free",
-     amount:"$0", 
-     features:[{Id:1, description:"Access to selected free courses"},{Id:2, description:"Access to selected free courses"},{Id:3, description:"Access to selected free courses"},{Id:4, description:"Access to selected free courses"}], 
-     href:"/"
+  const pricings = [
+    {
+      plan: "free",
+      amount: "$0",
+      features: [
+        { Id: 1, description: "Access to selected free courses" },
+        { Id: 2, description: "Access to selected free courses" },
+        { Id: 3, description: "Access to selected free courses" },
+        { Id: 4, description: "Access to selected free courses" },
+      ],
+      href: "/",
     },
-    {plan:"Pro plan",
-     amount:"$70", 
-     features:[{Id:1, description:"Access to selected free courses"},{Id:2, description:"Access to selected free courses"},{Id:3, description:"Access to selected free courses"},{Id:4, description:"Access to selected free courses"}], 
-     href:"/"
-    }
-  ]
+    {
+      plan: "Pro plan",
+      amount: "$70",
+      features: [
+        { Id: 1, description: "Access to selected free courses" },
+        { Id: 2, description: "Access to selected free courses" },
+        { Id: 3, description: "Access to selected free courses" },
+        { Id: 4, description: "Access to selected free courses" },
+      ],
+      href: "/",
+    },
+  ];
 
   return (
     <section className="home pt-5">
@@ -296,6 +309,7 @@ export default function Home() {
         {testimonials.map((testimonial) => (
           <TestimonialsCard
             key={testimonial.id}
+            home={true}
             imageurl={testimonial.imageurl}
             author={testimonial.author}
             content={testimonial.content}
@@ -329,12 +343,56 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-white rounded-md p-5 flex">
-{pricings.map((pricing)=>(
-  <PricingCard key={pricing.plan} plan={pricing.plan} amount={pricing.amount} features={pricing.features} href={pricing.href}/>
-))}
+          {pricings.map((pricing) => (
+            <PricingCard
+              key={pricing.plan}
+              plan={pricing.plan}
+              amount={pricing.amount}
+              features={pricing.features}
+              href={pricing.href}
+            />
+          ))}
+        </div>
+        <div className="bg-white rounded-md mt-10 p-5 flex">
+          <div className="w-2/5 mx-2">
+            <div className="p-5">
+              <div className="text-2xl font-bold">
+                <h1>Frequently</h1>
+                <h1>Asked Questions</h1>
+              </div>
+              <p>
+                Still you have any questions? contact out team team@gmail.com
+              </p>
+
+              <div className="mt-3">
+                <ButtonLinkPlain
+                  title={"See All FAQ's"}
+                  className="bg-gray-100 border border-gray-100"
+                  href=""
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-3/5 mx-2">
+          <AccordionItem title="Can I enroll in multiple courses at once?">
+        {"ppppp"}
+      </AccordionItem>
+      <AccordionItem title="What kind of supports Can I expect from instructures">
+      {"ppppp"}
+        
+      </AccordionItem>
+      <AccordionItem title="Are there any prerequisites for the courses?">
+      {"ppppp"}
+        
+      </AccordionItem>
+      <AccordionItem title="Can I download the course materials for offline">
+      {"ppppp"}
+        
+      </AccordionItem>
+
         
 
-      
+          </div>
         </div>
       </div>
     </section>

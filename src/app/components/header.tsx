@@ -27,7 +27,7 @@ function Header() {
           <div className="">
             <ul className="flex ">
               <li className="px-2">
-                <ButtonLinkPlain title="Home" className={""} href=""/>
+                <ButtonLinkPlain title="Home" className={""} href={"/"}/>
                
               </li>
               <li className="px-2">
@@ -46,7 +46,7 @@ function Header() {
                
               </li>
               <li className="px-2">
-              <ButtonLinkPlain title="Contact" className={""} href=""/>
+              <ButtonLinkPlain title="Contact" className={""} href="/contactus"/>
 
               </li>
             </ul>
@@ -55,11 +55,11 @@ function Header() {
         <div className="flex justify-end items-center">
           <ul className="flex ">
             <li className="px-2">
-            <ButtonLinkPlain title="Sign up" className={""} href=""/>
+            <ButtonLinkPlain title="Sign up" className={""} href={"/signup"}/>
              
             </li>
             <li className="px-2">
-            <Buttonlink title="Login" className={""} href=""/>
+            <Buttonlink title="Login" className={""} href={"/login"}/>
              
             </li>
           </ul>
