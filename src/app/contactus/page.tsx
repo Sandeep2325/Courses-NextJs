@@ -10,6 +10,14 @@ import { Metadata } from 'next';
 import axios from "axios";
 
 function ContactPage() {
+  const [base64Image, setBase64Image] = useState<string | null>(null);
+  const reader = new FileReader();
+
+  
+
+
+
+
   const [loader, setLoader] = useState(false)
   const MAX_FILE_SIZE = 102400; //100KB
 
@@ -57,9 +65,15 @@ function ContactPage() {
   const onSubmit = async (data: any) => {
     console.log(data.file[0])
     const file=data.file[0]
-    const url=URL.createObjectURL(file)
-    const selctedfile=file
 
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      console.log(base64String)
+      setBase64Image(base64String);
+    };
+  
+    reader.readAsDataURL(file);
+    console.log(base64Image)
     const body = new FormData();
     // console.log("file", image)
     body.append("file", file);  
