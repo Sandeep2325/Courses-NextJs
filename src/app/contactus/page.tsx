@@ -1,26 +1,47 @@
 "use client";
-import React from "react";
+import React, { useRef, useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Metadata } from 'next';
+import axios from "axios";
 
-function page() {
+function ContactPage() {
+  const [loader, setLoader] = useState(false)
+  const MAX_FILE_SIZE = 102400; //100KB
+
+  const validFileExtensions: { [key: string]: string[] } = {
+    image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp']
+  };
+
+  function isValidFileType(fileName: string, fileType: string): boolean {
+    const extensions = validFileExtensions[fileType];
+    if (!extensions) return false; // If fileType is not found, return false
+
+    const fileExtension = fileName.split('.').pop();
+    if (!fileExtension) return false; // If fileName doesn't contain an extension, return false
+
+    return extensions.includes(fileExtension.toLowerCase());
+  }
   const contactValidationSchema = Yup.object().shape({
     firstname: Yup.string().required("First Name is required"),
     lastname: Yup.string().required("Last Name is required"),
     email: Yup.string().required("Email is required").email("Invalid Email"),
     phone: Yup.string()
       .required("Phone No is required")
-      .max(10, "Enter Valid Phone no"),
+      .max(12, "Enter Valid Phone no"),
     subject: Yup.string()
       .required("Subject is required")
       .max(250, "Enter Less than 250 characters"),
     message: Yup.string()
       .required("Message is required")
       .max(250, "Enter Less than 500 characters"),
+    file: Yup.mixed()
+      .required("Required"),
+
   });
   const formOptions = { resolver: yupResolver(contactValidationSchema) };
   const {
@@ -33,9 +54,21 @@ function page() {
     formState,
   } = useForm(formOptions);
   const { errors } = formState;
-  const onSubmit = (data: any) => {
-    console.log(JSON.stringify(data));
+  const onSubmit = async (data: any) => {
+    console.log(data.file[0])
+    const file=data.file[0]
+    const url=URL.createObjectURL(file)
+    const selctedfile=file
+
+    const body = new FormData();
+    // console.log("file", image)
+    body.append("file", file);  
+    const response=await axios.post("api/upload", body)
+    console.log(response)
+
+    
   };
+ 
   return (
     <section className="contatcus mx-5">
       <div className="flex justify-between py-10">
@@ -54,7 +87,7 @@ function page() {
       <div className="flex bg-white rounded-md p-10">
         <div className="w-10/12">
           <div className="">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
               <div className="flex">
                 <div className="w-1/2 p-5">
                   <Input
@@ -123,8 +156,22 @@ function page() {
                   />
                 </div>
               </div>
+              <div className="flex">
+                <div className="w-full p-5">
+                  <Input
+                    label={"File"}
+                    type={"file"}
+                    placeholder={"File"}
+                    className={"resize-none w-full h-24 p-2 border"}
+                    error={errors.file?.message || ""}
+                 
+                    {...register("file", { required: "File required" })}
+                  />
+
+                </div>
+              </div>
               <div className="flex justify-center p-5">
-                <Button type={"submit"} title={"Send your message"} />
+                <Button type={"submit"} title={"Send your message"} disabled={loader} />
               </div>
             </form>
           </div>
@@ -168,4 +215,4 @@ function page() {
   );
 }
 
-export default page;
+export default ContactPage;

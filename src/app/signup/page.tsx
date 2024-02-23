@@ -7,14 +7,20 @@ import Buttonlink from "../components/Buttonlink";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import { signUp } from "@/redux/features/signupSlice";
 import { UseDispatch, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { UseSelector } from "react-redux";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
 export default function Signup() {
+  const router = useRouter()
+  const [loader, setLoader] = useState(false)
   const dispatch = useDispatch<AppDispatch>();
   const signValidationSchema = Yup.object().shape({
     fullname: Yup.string().required("Full Name is required"),
@@ -26,8 +32,7 @@ export default function Signup() {
       .required()
       .oneOf([Yup.ref("password"), ""], "Passwords must match")
       .required("Confirm Password is required"),
-    // firstName: Yup.string().required(),
-    // age: Yup.number().positive().integer().required(),
+
   });
   const formOptions = { resolver: yupResolver(signValidationSchema) };
   const {
@@ -40,13 +45,35 @@ export default function Signup() {
     formState,
   } = useForm(formOptions);
   const { errors } = formState;
-  const onSubmit = (data: any) => {
-    ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
-    
-    dispatch(signUp(JSON.stringify(data))); ///
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  };
+  const onSubmit = async (data: any) => {
+    setLoader(true)
+    try {
+      ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
+      console.log(data)
+      const response = await axios.post("/api/auth/signup", data)
+      console.log(response.data.message)
+      if (response.status === 200) {
+        toast.success(response.data.message+" Redirecting to login page")
+        await delay(2000)
+        router.push("/login")
+      }
+      else {
+        toast.success("Failed to create account")
 
+      }
+
+      dispatch(signUp(JSON.stringify(data))); ///
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    } catch (error: any) {
+      toast.error(error.response.data.error)
+    } finally {
+      setLoader(false)
+    }
+  };
+  function delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   /////////////////////////////////////////////////////////redux selector to select the state from redux store//////////////////////////////////////////
   const reducRetrivedFullname = useAppSelector(
     //
@@ -58,6 +85,7 @@ export default function Signup() {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <section className="auth mx-5">
+      <Toaster />
       <div className="flex items-center">
         <div className="w-3/5 mx-2 flex flex-col">
           <div className="details">
@@ -130,7 +158,7 @@ export default function Signup() {
               />
 
               <div className="text-center mt-6" style={{ display: "contents" }}>
-                <Button type={"submit"} title={"Login"} />
+                <Button type={"submit"} title={loader ? "Proccessing..." : "Login"} disabled={loader} />
                 {/* <button
                   type="submit"
                   className={`inline-block w-full bg-orange-400 text-white px-4 py-2 rounded-lg  hover:bg-gray-300 `}

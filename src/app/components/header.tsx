@@ -31,17 +31,17 @@ function Header() {
                
               </li>
               <li className="px-2">
-              <ButtonLinkPlain title="Courses" className={""} href=""/>
+              <ButtonLinkPlain title="Courses" className={""} href="/courses"/>
 
              
               </li>
               <li className="px-2">
-              <ButtonLinkPlain title="About us" className={""} href=""/>
+              <ButtonLinkPlain title="About us" className={""} href="/aboutus"/>
 
             
               </li>
               <li className="px-2">
-              <ButtonLinkPlain title="Pricing" className={""} href=""/>
+              <ButtonLinkPlain title="Pricing" className={""} href="/pricing"/>
 
                
               </li>

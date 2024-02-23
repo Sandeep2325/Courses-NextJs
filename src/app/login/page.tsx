@@ -5,13 +5,18 @@ import TestimonialImage from "@/app/assets/TestimonialImage.png";
 import Input from "@/app/components/Input";
 import * as Yup from "yup";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { login } from "@/redux/features/loginSlice";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 export default function LoginPage() {
+  const [loader, setLoader] = useState(false)
+  const router = useRouter()
   const dispatch = useDispatch<AppDispatch>();
   const signValidationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Invalid Email"),
@@ -30,17 +35,36 @@ export default function LoginPage() {
     formState,
   } = useForm(formOptions);
   const { errors } = formState;
-  const onSubmit = (data: any) => {
-    console.log(JSON.stringify(data));
-    ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
-    dispatch(login(data.email));
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const onSubmit = async (data: any) => {
+    try {
+      setLoader(true);
+      const response = await axios.post("/api/auth/login", data);
+      console.log(response);
+      ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
+      dispatch(login(data.email));
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if (response.status === 200) {
+        toast.success(response.data.message)
+        router.push("/");
+      }
+      else {
+        toast.success("Invalid credentials")
+      }
+
+    } catch (error: any) {
+      console.log("Signup failed: ", error.response.data.error);
+      toast.error(error.response.data.error);
+    } finally {
+      setLoader(false);
+    }
+
   };
   /////////////////////////////////////////////////////////redux selector to select the state from redux store//////////////////////////////////////////
   const reduxemail = useAppSelector((state) => state.loginReducer.value.email);
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <section className="auth mx-5">
+      <Toaster/>
       <div className="flex items-center">
         <div className="w-3/5 sm:w-1/1 mx-2 flex flex-col">
           <div className="details">
@@ -92,7 +116,7 @@ export default function LoginPage() {
               />
 
               <div className="text-center mt-6" style={{ display: "contents" }}>
-                <Button type={"submit"} title={"Login"} />
+                <Button type={"submit"} title={loader ? "Proccessing..." : "Login"} disabled={loader} />
                 {/* <button
                   type="submit"
                   className={`inline-block w-full bg-orange-400 text-white px-4 py-2 rounded-lg  hover:bg-gray-300 `}
@@ -103,7 +127,8 @@ export default function LoginPage() {
               <div>
                 <span>Don't have an account</span>{" "}
                 <Link className="border-b border-blue-400" href={"/signup"}>
-                  Signup
+                  {"Signup"}
+
                 </Link>
               </div>
             </form>

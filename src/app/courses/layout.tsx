@@ -2,8 +2,8 @@ import React from "react"
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Login",
-    description: "Login page",
+    title: "Courses",
+    description: "Courses",
   };
 export default function LoginLayout({
     children
