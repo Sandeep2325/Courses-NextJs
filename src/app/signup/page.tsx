@@ -94,12 +94,12 @@ export default function Signup() {
               <h1>email</h1>:{reducRetrivedEmail}
             </div> */}
             <div>
-              <h1 className="text-2xl font-bold">Students Testimonials</h1>
+              <h1 className="text-2xl font-bold">{"Students Testimonials"}</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
+             {`Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
                 voluptatibus ducimus, qui consectetur ipsum quo adipisci esse
                 placeat dolorum repudiandae laudantium ullam non numquam
-                officiis corporis. Unde modi quas architecto!
+                officiis corporis. Unde modi quas architecto!`}
               </p>
             </div>
           </div>
@@ -167,7 +167,7 @@ export default function Signup() {
                 </button> */}
               </div>
               <div>
-                <span>Already have an account?</span>{" "}
+                <span>{"Already have an account?"}</span>{" "}
                 <Link className="border-b border-blue-400" href={"/login"}>
                   Login
                 </Link>

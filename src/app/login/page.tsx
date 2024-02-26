@@ -72,10 +72,10 @@ export default function LoginPage() {
             <div>
               <h1 className="text-2xl font-bold">Students Testimonials</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
+                {`Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
                 voluptatibus ducimus, qui consectetur ipsum quo adipisci esse
                 placeat dolorum repudiandae laudantium ullam non numquam
-                officiis corporis. Unde modi quas architecto!
+                officiis corporis. Unde modi quas architecto!`}
               </p>
             </div>
           </div>
@@ -93,8 +93,8 @@ export default function LoginPage() {
         <div className="w-2/5 sm:w-1/1">
           <div className="bg-white rounded-md py-11 px-6">
             <div className="text-center">
-              <h1 className="text-2xl font-bold">Login</h1>
-              <p>Welcome back! Please login to access your account</p>
+              <h1 className="text-2xl font-bold">{"Login"}</h1>
+              <p>{"Welcome back! Please login to access your account"}</p>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input
@@ -125,7 +125,7 @@ export default function LoginPage() {
                 </button> */}
               </div>
               <div>
-                <span>Don't have an account</span>{" "}
+                <span>{"Don't have an account"}</span>{" "}
                 <Link className="border-b border-blue-400" href={"/signup"}>
                   {"Signup"}
 
