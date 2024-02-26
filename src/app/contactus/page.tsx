@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Image from "next/image";
@@ -8,32 +8,18 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Metadata } from 'next';
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+
 
 function ContactPage() {
-  const [base64Image, setBase64Image] = useState<string | null>(null);
   const reader = new FileReader();
-
-  
-
-
-
-
+  const [base64Image, setBase64Image]=useState("")
+  const [data, setData]=useState({})
   const [loader, setLoader] = useState(false)
   const MAX_FILE_SIZE = 102400; //100KB
 
-  const validFileExtensions: { [key: string]: string[] } = {
-    image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp']
-  };
 
-  function isValidFileType(fileName: string, fileType: string): boolean {
-    const extensions = validFileExtensions[fileType];
-    if (!extensions) return false; // If fileType is not found, return false
 
-    const fileExtension = fileName.split('.').pop();
-    if (!fileExtension) return false; // If fileName doesn't contain an extension, return false
-
-    return extensions.includes(fileExtension.toLowerCase());
-  }
   const contactValidationSchema = Yup.object().shape({
     firstname: Yup.string().required("First Name is required"),
     lastname: Yup.string().required("Last Name is required"),
@@ -55,6 +41,7 @@ function ContactPage() {
   const {
     register,
     handleSubmit,
+    reset, 
     watch,
     setValue,
     control,
@@ -63,26 +50,41 @@ function ContactPage() {
   } = useForm(formOptions);
   const { errors } = formState;
   const onSubmit = async (data: any) => {
-    console.log(data.file[0])
-    const file=data.file[0]
+    setLoader(true)
+    setData(data)
+    const file = data.file[0];
 
     reader.onloadend = () => {
-      const base64String = reader.result as string;
-      console.log(base64String)
-      setBase64Image(base64String);
+        const base64String = reader.result as string;
+        console.log(base64String);
+        setBase64Image(base64String);
     };
-  
-    reader.readAsDataURL(file);
-    console.log(base64Image)
-    const body = new FormData();
-    // console.log("file", image)
-    body.append("file", file);  
-    const response=await axios.post("api/upload", body)
-    console.log(response)
 
-    
-  };
- 
+    reader.readAsDataURL(file);
+};
+useEffect(() => {
+  // This code will execute when base64Image state changes
+  if (base64Image !== "") {
+      // Perform actions dependent on base64Image, like making the POST request
+      const postData = { ...data, base64Image }; // Assuming data includes other fields for the POST request
+      axios.post("api/contact", postData)
+          .then(response => {
+            console.log(response.data)
+            if (response.status===200)
+              toast.success(response.data.message)
+          })
+          .catch(error => {
+              console.error("Error:", error);
+              toast.error(error)
+
+          });
+  }
+  setBase64Image("")
+  setLoader(false)
+  reset()
+
+}, [base64Image]);
+
   return (
     <section className="contatcus mx-5">
       <div className="flex justify-between py-10">
@@ -99,6 +101,7 @@ function ContactPage() {
         </div>
       </div>
       <div className="flex bg-white rounded-md p-10">
+        <Toaster/>
         <div className="w-10/12">
           <div className="">
             <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -117,7 +120,7 @@ function ContactPage() {
                   <Input
                     label={"Last Name"}
                     type={"text"}
-                    placeholder={"First Name"}
+                    placeholder={"Last Name"}
                     className={""}
                     {...register("lastname")}
                     error={errors.lastname?.message || ""}
@@ -178,14 +181,14 @@ function ContactPage() {
                     placeholder={"File"}
                     className={"resize-none w-full h-24 p-2 border"}
                     error={errors.file?.message || ""}
-                 
+
                     {...register("file", { required: "File required" })}
                   />
 
                 </div>
               </div>
               <div className="flex justify-center p-5">
-                <Button type={"submit"} title={"Send your message"} disabled={loader} />
+                <Button type={"submit"} title={loader?"Proccesing...":"Send your message"} disabled={loader} />
               </div>
             </form>
           </div>
