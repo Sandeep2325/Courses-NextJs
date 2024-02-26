@@ -11,7 +11,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 
 function ContactPage() {
-  const reader = new FileReader();
   const [base64Image, setBase64Image]=useState("")
   const [data, setData]=useState({})
   const [loader, setLoader] = useState(false)
@@ -45,6 +44,8 @@ function ContactPage() {
   } = useForm(formOptions);
   const { errors } = formState;
   const onSubmit = async (data: any) => {
+  const reader = new FileReader();
+
     setLoader(true)
     setData(data)
     const file = data.file[0];
