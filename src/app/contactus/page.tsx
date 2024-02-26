@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Metadata } from 'next';
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -16,10 +15,6 @@ function ContactPage() {
   const [base64Image, setBase64Image]=useState("")
   const [data, setData]=useState({})
   const [loader, setLoader] = useState(false)
-  const MAX_FILE_SIZE = 102400; //100KB
-
-
-
   const contactValidationSchema = Yup.object().shape({
     firstname: Yup.string().required("First Name is required"),
     lastname: Yup.string().required("Last Name is required"),
