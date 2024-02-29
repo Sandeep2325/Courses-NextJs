@@ -15,6 +15,9 @@ import TestimonialsCard from "./components/TestimonialsCard";
 import TestimonialImage from "@/app/assets/TestimonialImage.png";
 import PricingCard from "./components/PricingCard";
 import AccordionItem from "./components/Accordian";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 export default function Home() {
   const benefits = [
     {
@@ -182,7 +185,28 @@ export default function Home() {
       href: "/",
     },
   ];
+  interface Benifit {
+    _id: string;
+    priornum: string;
+    benifit:string;
+    description: string;
+    // Add other properties as needed
+  }
+  const [benifits, setBenifits]=useState<Benifit[]>([])
+useEffect(  ()=>{
+  const fetchData=async ()=>{
+    try{
+      const benifitData=await axios.get("/api/benifit")
+      console.log(benifitData)
+      setBenifits(benifitData.data.data)
+    }catch(error:any){
+console.log(error)
+    }
 
+
+  }
+  fetchData()
+},[])
   return (
     <section className="home pt-5">
       <div className="flex justify-center">
@@ -252,12 +276,12 @@ export default function Home() {
       </div>
 
       <div className="flex flex-wrap">
-        {benefits.map((benefit) => (
+        {benifits.map((benifit) => (
           <BenefitCard
-            key={benefit.num}
-            num={benefit.num}
-            title={benefit.title}
-            content={benefit.content}
+            key={benifit._id}
+            num={benifit.priornum}
+            title={benifit.benifit}
+            content={benifit.description}
           />
         ))}
       </div>
