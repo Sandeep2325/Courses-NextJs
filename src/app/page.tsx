@@ -188,25 +188,25 @@ export default function Home() {
   interface Benifit {
     _id: string;
     priornum: string;
-    benifit:string;
+    benifit: string;
     description: string;
     // Add other properties as needed
   }
-  const [benifits, setBenifits]=useState<Benifit[]>([])
-useEffect(  ()=>{
-  const fetchData=async ()=>{
-    try{
-      const benifitData=await axios.get("/api/benifit")
-      console.log(benifitData)
-      setBenifits(benifitData.data.data)
-    }catch(error:any){
-console.log(error)
+  const [benifits, setBenifits] = useState<Benifit[]>([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const benifitData = await axios.get("/api/benifit")
+        console.log(benifitData)
+        setBenifits(benifitData.data.data)
+      } catch (error: any) {
+        console.log(error)
+      }
+
+
     }
-
-
-  }
-  fetchData()
-},[])
+    fetchData()
+  }, [])
   return (
     <section className="home pt-5">
       <div className="flex justify-center">
@@ -398,23 +398,23 @@ console.log(error)
             </div>
           </div>
           <div className="w-3/5 mx-2">
-          <AccordionItem title="Can I enroll in multiple courses at once?">
-        {"ppppp"}
-      </AccordionItem>
-      <AccordionItem title="What kind of supports Can I expect from instructures">
-      {"ppppp"}
-        
-      </AccordionItem>
-      <AccordionItem title="Are there any prerequisites for the courses?">
-      {"ppppp"}
-        
-      </AccordionItem>
-      <AccordionItem title="Can I download the course materials for offline">
-      {"ppppp"}
-        
-      </AccordionItem>
+            <AccordionItem title="Can I enroll in multiple courses at once?">
+              {"ppppp"}
+            </AccordionItem>
+            <AccordionItem title="What kind of supports Can I expect from instructures">
+              {"ppppp"}
 
-        
+            </AccordionItem>
+            <AccordionItem title="Are there any prerequisites for the courses?">
+              {"ppppp"}
+
+            </AccordionItem>
+            <AccordionItem title="Can I download the course materials for offline">
+              {"ppppp"}
+
+            </AccordionItem>
+
+
 
           </div>
         </div>

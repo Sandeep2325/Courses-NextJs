@@ -50,23 +50,40 @@ export default function Signup() {
     try {
       ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
       console.log(data)
-      const response = await axios.post("/api/auth/signup", data)
-      console.log(response.data.message)
-      if (response.status === 200) {
-        toast.success(response.data.message+" Redirecting to login page")
-        await delay(2000)
-        router.push("/login")
-      }
-      else {
-        toast.success("Failed to create account")
-
+      const data_ = { "username": data.fullname, "email": data.email, "password": data.cpassword, "first_name": data.fullname, "last_name": data.fullname, }
+      const response = await axios.post("https://sandeep2325.pythonanywhere.com/users/", data_);
+      console.log(response.data);
+      if (response.status === 201) {
+        toast.success(response.data.message + " Redirecting to login page");
+        await delay(2000);
+        router.push("/login");
+      } else {
+        toast.error(response.data.error);
       }
 
       dispatch(signUp(JSON.stringify(data))); ///
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     } catch (error: any) {
-      toast.error(error.response.data.error)
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log("Server responded with status code:", error.response.status);
+        console.log("Error data:", error.response.data);
+        if (error.response.status === 400) {
+          toast.error("Bad request: " + error.response.data.error);
+        } else if (error.response.status === 500) {
+          toast.error("Internal Server Error: Please try again later");
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log("No response received from server:", error.request);
+        toast.error("No response received from server");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error:", error.message);
+        toast.error("Error: " + error.message);
+      }
     } finally {
       setLoader(false)
     }
@@ -96,7 +113,7 @@ export default function Signup() {
             <div>
               <h1 className="text-2xl font-bold">{"Students Testimonials"}</h1>
               <p>
-             {`Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
+                {`Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
                 voluptatibus ducimus, qui consectetur ipsum quo adipisci esse
                 placeat dolorum repudiandae laudantium ullam non numquam
                 officiis corporis. Unde modi quas architecto!`}
