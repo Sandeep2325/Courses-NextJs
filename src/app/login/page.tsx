@@ -51,7 +51,7 @@ export default function LoginPage() {
         toast.success(response.data.message)
         // const user_id=await axios.get(`${Base_url}getdata/?token=${response.data.access}`);
         Cookies.set("user_id", "10", { expires: 100 })
-        router.push("/chat");
+        router.push("/");
       }
       else {
         toast.success("Invalid credentials")
