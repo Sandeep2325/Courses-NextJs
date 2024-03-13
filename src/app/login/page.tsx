@@ -38,7 +38,7 @@ export default function LoginPage() {
   const onSubmit = async (data: any) => {
     try {
       setLoader(true);
-      const response = await axios.post("/api/auth/login", data);
+      const response = await axios.post("/api/token/", data);
       console.log(response);
       ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
       dispatch(login(data.email));
