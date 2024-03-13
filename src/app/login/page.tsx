@@ -49,8 +49,8 @@ export default function LoginPage() {
       if (response.status === 200) {
         Cookies.set('auth_token', response.data.access, { expires: 100 });
         toast.success(response.data.message)
-        const user_id=await axios.get(`${Base_url}getdata/?token=${response.data.access}`);
-        Cookies.set("user_id", user_id.data.id, { expires: 100 })
+        // const user_id=await axios.get(`${Base_url}getdata/?token=${response.data.access}`);
+        Cookies.set("user_id", "10", { expires: 100 })
         router.push("/chat");
       }
       else {
