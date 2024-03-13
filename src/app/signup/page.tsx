@@ -17,7 +17,7 @@ import { UseSelector } from "react-redux";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
+import { Base_url } from "../config";
 export default function Signup() {
   const router = useRouter()
   const [loader, setLoader] = useState(false)
@@ -50,8 +50,8 @@ export default function Signup() {
     try {
       ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
       console.log(data)
-      const data_ = { "username": data.fullname, "email": data.email, "password": data.cpassword, "first_name": data.fullname, "last_name": data.fullname, }
-      const response = await axios.post("https://sandeep2325.pythonanywhere.com/users/", data_);
+      const data_ = { "email": data.email, "password": data.cpassword, "first_name": data.fullname, "last_name": data.fullname, }
+      const response = await axios.post(`${Base_url}register/`, data_);
       console.log(response.data);
       if (response.status === 201) {
         toast.success(response.data.message + " Redirecting to login page");
@@ -175,7 +175,7 @@ export default function Signup() {
               />
 
               <div className="text-center mt-6" style={{ display: "contents" }}>
-                <Button type={"submit"} title={loader ? "Proccessing..." : "Login"} disabled={loader} />
+                <Button type={"submit"} title={loader ? "Proccessing..." : "Signup"} disabled={loader} />
                 {/* <button
                   type="submit"
                   className={`inline-block w-full bg-orange-400 text-white px-4 py-2 rounded-lg  hover:bg-gray-300 `}

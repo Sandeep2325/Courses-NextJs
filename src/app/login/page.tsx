@@ -14,6 +14,8 @@ import { login } from "@/redux/features/loginSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { Base_url } from "../config";
+import Cookies from 'js-cookie';
 export default function LoginPage() {
   const [loader, setLoader] = useState(false)
   const router = useRouter()
@@ -22,7 +24,7 @@ export default function LoginPage() {
     email: Yup.string().required("Email is required").email("Invalid Email"),
     password: Yup.string()
       .required("Password is required")
-      .min(8, "Password must be atleast 8 characters"),
+      .min(1, "Password must be atleast 8 characters"),
   });
   const formOptions = { resolver: yupResolver(signValidationSchema) };
   const {
@@ -38,22 +40,25 @@ export default function LoginPage() {
   const onSubmit = async (data: any) => {
     try {
       setLoader(true);
-      const response = await axios.post("/api/auth/login", data);
+      const response = await axios.post(`${Base_url}api/token/`, data);
       console.log(response);
       ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
       dispatch(login(data.email));
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (response.status === 200) {
+        Cookies.set('auth_token', response.data.access, { expires: 100 });
         toast.success(response.data.message)
-        router.push("/");
+        const user_id=await axios.get(`${Base_url}getdata/?token=${response.data.access}`);
+        Cookies.set("user_id", user_id.data.id, { expires: 100 })
+        router.push("/chat");
       }
       else {
         toast.success("Invalid credentials")
       }
-
+      
     } catch (error: any) {
-      console.log("Signup failed: ", error.response.data.error);
-      toast.error(error.response.data.error);
+      console.log("Signup failed: ", error.response.data.detail);
+      toast.error(error.response.data.detail);
     } finally {
       setLoader(false);
     }
