@@ -23,3 +23,21 @@ body{
   font-weight: bolder;
   font-size: 80px;
 }
+.container {
+  width: 90vw; /* 90% of the viewport width */
+  height: 90vh; /* 90% of the viewport height */
+}
+@media screen and (max-width: 768px) {
+  /* Styles for devices with a maximum width of 768px */
+  .container {
+      width: 270vw; /* Adjust as needed */
+      height: 80vh; /* Adjust as needed */
+  }
+}
+.text {
+  font-size: 3vw; /* Adjust as needed */
+}
+
+.padding {
+  padding: 5vh 2vw; /* Adjust as needed */
+}

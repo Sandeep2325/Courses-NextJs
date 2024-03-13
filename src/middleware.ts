@@ -6,9 +6,9 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
     const isPublicPath = path === "/login" || path === "/signup";
     
-    const restrictedPath=path==="/courses" || path==="courses/:page*"
-    const token = request.cookies.get("token")?.value || "";
-
+    const restrictedPath=path==="/courses" || path==="courses/:page*" || path==="/chat" || path==="chat/:page*"
+    const token = request.cookies.get("auth_token")?.value || "";
+   
     if (isPublicPath && token) {
         // return NextResponse.redirect("/")
         return NextResponse.redirect(new URL("/", request.nextUrl));
@@ -24,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ["/", "/contactus", "/courses/:page*", "/login", "/signup", "/pricing", "/aboutus"],
+    matcher: ["/", "/contactus", "/courses/:page*", "/login", "/signup", "/pricing", "/aboutus","/chat"],
 };

@@ -49,6 +49,10 @@ function Header() {
               <ButtonLinkPlain title="Contact" className={""} href="/contactus"/>
 
               </li>
+              <li className="px-2">
+              <ButtonLinkPlain title="Chat" className={""} href="/chat"/>
+
+              </li>
             </ul>
           </div>
         </div>
