@@ -51,7 +51,7 @@ export default function Signup() {
       ////////////////////////////////////////Dspatching to the redux store reducers/////////////////////////////////////////
       console.log(data)
       const data_ = { "username": data.fullname, "email": data.email, "password": data.cpassword, "first_name": data.fullname, "last_name": data.fullname, }
-      const response = await axios.post("https://sandeep2325.pythonanywhere.com/users/", data_);
+      const response = await axios.post("https://sandeep2325.pythonanywhere.com/register/", data_);
       console.log(response.data);
       if (response.status === 201) {
         toast.success(response.data.message + " Redirecting to login page");
