@@ -1,1 +1,1 @@
-export const Base_url="https://sandeep2325.pythonanywhere.com/"
+export const Base_url="http://127.0.0.1:8000/"
