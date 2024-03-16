@@ -9,7 +9,6 @@ function ChatSidebar() {
     const authToken = Cookies.get("auth_token");
     const [userList, setUserList] = useState([]);
     const [loader, setLoader] = useState(true)
-    const users = ["user 1", "user 2"];
     useEffect(() => {
         if (authToken) {
             axios
