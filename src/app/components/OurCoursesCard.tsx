@@ -2,7 +2,7 @@ import React from "react";
 import OurCoursesImage from "@/app/assets/OurCourseImage.png";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { Base_url } from "../config";
+import { Base_url, Base_urll } from "../config";
 interface MyComponentProps {
   imageurl: string;
   weeks: string;
@@ -26,7 +26,7 @@ function OurCoursesCard({
     <div className="max-w-sm  m-2  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="p-3">
         <Link href={""}>
-          <Image className="rounded-md" src={"http://127.0.0.1:8000"+imageurl} alt="" width={300} height={300}/>
+          <Image className="rounded-md" src={Base_urll+imageurl} alt="" width={300} height={300}/>
         </Link>
         <div className="flex justify-between p-2">
           <div className="flex justify-normal">
