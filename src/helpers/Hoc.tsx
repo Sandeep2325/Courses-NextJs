@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, ComponentType } from "react";
 
 const HigherOrderComponent = (Wrappedcomponent: ComponentType<any>) => {
