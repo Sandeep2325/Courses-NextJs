@@ -4,9 +4,9 @@ import React from 'react'
 import MessageInput from "../components/MessageInput"
 import Link from "next/link"
 import ChatSidebar from "../components/ChatSidebar"
-import HigherOrderComponent from "@/helpers/Hoc"
+// import HigherOrderComponent from "@/helpers/Hoc"
 function ChatArea() {
- const Hoc=HigherOrderComponent(ChatSidebar)
+//  const Hoc=HigherOrderComponent(ChatSidebar)
   return (
     <div className="flex-1 overflow-y-auto bg-gray-100 px-4 py-2 flex">
       {/* Sidebar */}
