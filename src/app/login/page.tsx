@@ -18,7 +18,7 @@ import { Base_url } from "@/app/config";
 // import { Base_url } from "../config";
 import Cookies from 'js-cookie';
 export default function LoginPage() {
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false)  
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>();
   const signValidationSchema = Yup.object().shape({
