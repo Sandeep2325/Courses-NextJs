@@ -13,8 +13,8 @@ function Header() {
   const [token, setToken] = useState("");
   console.log(token);
   const handleLogout = () => {
-    Cookies.remove("auth_token")
-    // Cookies.set("auth_token", "", { expires: 100 });
+    // Cookies.remove("auth_token")
+    Cookies.set("auth_token", "", { expires: 100 });
     setToken("");   
     router.push("/login");
   };
